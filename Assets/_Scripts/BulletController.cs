@@ -29,12 +29,11 @@ public class BulletController : MonoBehaviour
         transform.position += new Vector3(0.0f, bulletSpeed * Time.deltaTime, 0.0f);
     }
 
+    //Resets the bullet if it goes off screen
     private void CheckBounds()
     {
         if (transform.position.y >= boundary.Top)
         {
-            //TODO: This code needs to change to use the BulletPoolManager's
-            //TODO: ResetBullet function which will return the bullet to the pool
             _bulletPool.ResetBullet(this.gameObject);
         }
     }

@@ -7,27 +7,17 @@ using UnityEngine;
 [System.Serializable]
 public class BulletPoolManager : MonoBehaviour
 {
-    // public static BulletPoolManager Instance()
-    // {
-    //     if (_instance == null)
-    //     {
-    //         _instance = new BulletPoolManager();
-    //     }
-    //     return _instance;
-    // }
     public GameObject bullet;
 
     //TODO: create a structure to contain a collection of bullets
     public BulletController bulletController;
     public int _maxBullets;
     private Queue<GameObject> _bulletPool = new Queue<GameObject>();
-    // private static BulletPoolManager _instance;
 
     // Start is called before the first frame update
     void Start()
     {
         bulletController._bulletPool = this;
-        // TODO: add a series of bullets to the Bullet Pool
         bullet.SetActive(false);
         _BuildBulletPool();
     }
@@ -38,7 +28,7 @@ public class BulletPoolManager : MonoBehaviour
         
     }
 
-    //TODO: modify this function to return a bullet from the Pool
+    // If the queue is empty, enqueue another bullet before returning it
     public GameObject GetBullet()
     {
         if (getEmpty())
@@ -53,13 +43,14 @@ public class BulletPoolManager : MonoBehaviour
         return _bullet;
     }
 
-    //TODO: modify this function to reset/return a bullet back to the Pool 
+    //Resets/returns a bullet back to the Pool 
     public void ResetBullet(GameObject bullet)
     {
         bullet.SetActive(false);
         _bulletPool.Enqueue(bullet);
     }
 
+    // Builds the pool of bullets of size maxBullets, which can be accessed in the inspector
     private void _BuildBulletPool()
     {
         for (int i=0;i<_maxBullets;i++)

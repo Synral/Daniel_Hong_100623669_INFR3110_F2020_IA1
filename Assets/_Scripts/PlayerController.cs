@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 
     //TODO: create a reference to the BulletPoolManager here
     public BulletPoolManager _bulletPool;
-    //public int maxBullets;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +32,6 @@ public class PlayerController : MonoBehaviour
         _bulletSound = GetComponent<AudioSource>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
-        //_bulletPool = BulletPoolManager.Instance();
-        //_bulletPool._maxBullets = maxBullets;
 
         // Shoots bullet on a delay if button is pressed
         StartCoroutine(FireBullet());
@@ -112,6 +109,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Gets a bullet from the pool and sets it's position when shoot button is pressed
     IEnumerator FireBullet()
     { 
         while (true)
@@ -122,15 +120,9 @@ public class PlayerController : MonoBehaviour
             {
                 _bulletSound.Play();
 
-                //TODO: this code needs to change to user the BulletPoolManager's
-                //TODO: GetBullet function which will return a reference to a 
-                //TODO: bullet object. 
-                //TODO: Ensure you position the new bullet at the bulletSpawn position
                 GameObject _bullet = _bulletPool.GetBullet();
                 _bullet.transform.position = bulletSpawn.position;
             }
-
         }
     }
-
 }
